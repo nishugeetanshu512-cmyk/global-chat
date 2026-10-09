@@ -4,7 +4,7 @@
   "description": "Real-time chat app: auth, 1:1 and group chat, files, voice notes, AI assistant",
   "main": "server.js",
   "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=18" },
+  "engines": { "node": "20.18.0" },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^11.0.0",
