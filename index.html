@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1f1b">
+<title>Ridge – chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<main id="auth" class="auth hidden">
+  <section class="hero" aria-hidden="true">
+    <div class="stars"></div>
+    <svg class="range" viewBox="0 0 600 300" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 300V190l70-60 55 40 90-110 80 95 60-45 110 120 60-50 75 70v150Z" fill="#1b4a42" opacity=".55"/>
+      <path d="M0 300V230l90-70 70 55 110-105 90 100 70-60 170 150Z" fill="#14362f" opacity=".85"/>
+      <path d="M0 300V265l120-60 80 45 120-80 120 95 80-40 80 75Z" fill="#0b1f1a"/>
+      <path d="M270 145l-22 28 22-8 20 10Z M215 80l-15 19 15-6 14 7Z" fill="#e9f1ec" opacity=".9"/>
+    </svg>
+    <div class="hero-copy">
+      <span class="wordmark">Ridge</span>
+      <p>Conversations, built from the ground up.</p>
+    </div>
+  </section>
+  <section class="auth-form">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="sub" id="a-sub">Sign in to pick up where you left off.</p>
+      <div class="tabs" role="tablist">
+        <button id="tab-login" class="on" type="button">Sign in</button>
+        <button id="tab-register" type="button">Create account</button>
+      </div>
+      <label>Username <input id="a-user" autocomplete="username" maxlength="20" autocapitalize="none"></label>
+      <label>Password <input id="a-pass" type="password" autocomplete="current-password"></label>
+      <p id="a-err" class="err" role="alert"></p>
+      <button id="a-go" class="primary" type="button">Sign in</button>
+    </div>
+  </section>
+</main>
+
+<div id="app" class="app hidden">
+  <aside id="side" class="side">
+    <header class="side-head">
+      <svg class="mark small" viewBox="0 0 48 28" aria-hidden="true"><path d="M1 27 15 6l8 11 7-9 17 19Z" fill="currentColor"/></svg>
+      <div class="me"><strong id="me-name"></strong><span id="conn" class="conn">connecting…</span></div>
+      <button id="logout" class="ghost" type="button">Sign out</button>
+    </header>
+    <div class="side-tools">
+      <input id="find" placeholder="Find people or messages" autocomplete="off">
+      <button id="new-group" class="ghost" type="button">New group</button>
+    </div>
+    <div id="results" class="results hidden"></div>
+    <ul id="list" class="list"></ul>
+  </aside>
+
+  <section id="chat" class="chat">
+    <div id="empty" class="empty">
+      <svg class="mark" viewBox="0 0 48 28" aria-hidden="true"><path d="M1 27 15 6l8 11 7-9 17 19Z" fill="currentColor"/></svg>
+      <h2>Pick a trail</h2>
+      <p>Search for someone on the left to start a conversation.</p>
+    </div>
+    <div id="pane" class="pane hidden">
+      <header class="chat-head">
+        <button id="back" class="ghost back" type="button" aria-label="Back to chats">‹</button>
+        <div><strong id="c-title"></strong><div id="c-sub" class="muted"></div></div>
+      </header>
+      <div id="msgs" class="msgs"></div>
+      <div id="typing" class="typing"></div>
+      <footer class="composer">
+        <input type="file" id="file" class="hidden" accept=".png,.jpg,.jpeg,.gif,.webp,.pdf,.txt,.mp3,.wav,.ogg,.webm,.m4a,.mp4">
+        <button id="attach" class="icon" type="button" title="Attach file" aria-label="Attach file">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 11-9 9a5.5 5.5 0 0 1-8-8l9-9a3.7 3.7 0 0 1 5.3 5.3l-9 9a1.8 1.8 0 0 1-2.6-2.6l8-8"/></svg>
+        </button>
+        <button id="rec" class="icon" type="button" title="Record voice note" aria-label="Record voice note">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        </button>
+        <textarea id="text" rows="1" placeholder="Write a message" maxlength="4000"></textarea>
+        <button id="send" class="send" type="button" title="Send" aria-label="Send">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </footer>
+    </div>
+  </section>
+</div>
+
+<dialog id="group-dlg">
+  <form method="dialog" id="group-form">
+    <h2>New group</h2>
+    <label>Group name <input id="g-name" maxlength="40"></label>
+    <label>Add members <input id="g-find" placeholder="Search usernames" autocomplete="off"></label>
+    <div id="g-results" class="chips"></div>
+    <div id="g-picked" class="chips picked"></div>
+    <p id="g-err" class="err"></p>
+    <div class="row"><button value="cancel" class="ghost">Cancel</button><button id="g-create" class="primary" type="button">Create group</button></div>
+  </form>
+</dialog>
+
+<script src="/app.js"></script>
+</body>
+</html>
